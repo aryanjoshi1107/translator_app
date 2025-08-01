@@ -3,42 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Translator</title>
+
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional: Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body>
-    <form method="POST" action="{% url 'translate' %}">
-        {% csrf_token %}
-        <input type="text" name="text" placeholder="Enter the text to translate">
-        <select name="text_language" id="text_language">
-            <option value="en">English</option>
-            <option value="hi">Hindi</option>
-            <option value="fr">French</option>
-            <option value="es">Spanish</option>
-            <option value="de">German</option>
-            <option value="it">Italian</option>
-            <option value="pt">Portuguese</option>
-            <option value="ru">Russian</option>
-        </select>
-        <select name="translated_language" id="translated_language">
-            <option value="en">English</option>
-            <option value="hi">Hindi</option>
-            <option value="fr">French</option>
-            <option value="es">Spanish</option>
-            <option value="de">German</option>
-            <option value="it">Italian</option>
-            <option value="pt">Portuguese</option>
-            <option value="ru">Russian</option>
-        </select>
-        <input type="submit" value="Translate">
-    </form>
-    
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
-    
-    {% if translatedText %}
-        <h1>Translated Text:</h1>
-        <p>{{ translatedText }}</p>
-    {% endif %}
+<body class="bg-light">
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card shadow rounded-4">
+                    <div class="card-body">
+                        <h3 class="card-title text-center mb-4"><i class="bi bi-translate"></i> Language Translator</h3>
+
+                        <form method="POST" action="{% url 'translate' %}">
+                            {% csrf_token %}
+                            
+                            <div class="mb-3">
+                                <label for="text" class="form-label">Text to Translate</label>
+                                <input type="text" name="text" class="form-control" placeholder="Enter your text here" required>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label for="text_language" class="form-label">From Language</label>
+                                    <select class="form-select" name="text_language" id="text_language" required>
+                                        <option value="en">English</option>
+                                        <option value="hi">Hindi</option>
+                                        <option value="fr">French</option>
+                                        <option value="es">Spanish</option>
+                                        <option value="de">German</option>
+                                        <option value="it">Italian</option>
+                                        <option value="pt">Portuguese</option>
+                                        <option value="ru">Russian</option>
+                                    </select>
+                                </div>
+
+                                <div class="col">
+                                    <label for="translated_language" class="form-label">To Language</label>
+                                    <select class="form-select" name="translated_language" id="translated_language" required>
+                                        <option value="en">English</option>
+                                        <option value="hi">Hindi</option>
+                                        <option value="fr">French</option>
+                                        <option value="es">Spanish</option>
+                                        <option value="de">German</option>
+                                        <option value="it">Italian</option>
+                                        <option value="pt">Portuguese</option>
+                                        <option value="ru">Russian</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-arrow-right-circle-fill"></i> Translate</button>
+                            </div>
+                        </form>
+
+                        {% if error %}
+                            <div class="alert alert-danger mt-3" role="alert">
+                                {{ error }}
+                            </div>
+                        {% endif %}
+
+                        {% if translatedText %}
+                            <div class="mt-4">
+                                <h5 class="text-success"><i class="bi bi-check-circle"></i> Translated Text:</h5>
+                                <p class="form-control bg-light">{{ translatedText }}</p>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
